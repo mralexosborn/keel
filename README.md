@@ -1,4 +1,13 @@
-# Keel — Usage Guide
+# Keel
+
+Compress the research-to-draft pipeline for long-form analytical writing. Keel uses Claude to discover sources, extract insights from PDFs, and synthesize findings — organized as a sequential stage pipeline you control.
+
+## Prerequisites
+
+- Python 3.11+
+- [uv](https://docs.astral.sh/uv/) package manager
+- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) installed and authenticated
+- [Brave Search API key](https://brave.com/search/api/)
 
 ## Setup
 
@@ -19,7 +28,7 @@ uv run keel --help
 # 1. Create a new project (auto-runs scan)
 uv run keel new "Vietnamese shipyard capacity expansion"
 
-# 2. Review 01-scan.md, save relevant articles as PDFs into sources/
+# 2. Review scan-1.md, save relevant articles as PDFs into sources/
 #    ~/.keel/projects/vietnamese-shipyard-capacity-expansion/sources/
 
 # 3. Extract and synthesize your sources
@@ -41,11 +50,11 @@ keel archive              # Move active project to ~/.keel/archive/
 ### Pipeline Stages
 
 ```bash
-keel scan                 # Stage 1: Discover sources → 01-scan.md
+keel scan                 # Stage 1: Discover sources → scan-N.md
 keel digest               # Stage 2: Extract PDFs + synthesize → 02-digest.md
 ```
 
-Stages run in order. Re-running a completed stage prompts for confirmation and backs up existing output to `.bak`.
+Stages run in order. Re-running `keel scan` creates a new numbered version (`scan-1.md`, `scan-2.md`, ...) so you can compare results across runs.
 
 ### Source Management
 
@@ -72,7 +81,7 @@ keel sources remove "https://example.com/feed/" # Remove a source
 keel new "topic"
     │
     ▼
- 01-scan.md ← ranked source table
+ scan-1.md ← ranked source table
     │
     │  (you review, save PDFs to sources/)
     ▼
@@ -114,7 +123,8 @@ Configure in `~/.keel/config.yaml` under `sources.trusted_domains` and `sources.
     <slug>/
       .state               # Stage progression tracker
       notes.md             # Optional seed context
-      01-scan.md           # Scan output
+      scan-1.md            # Scan output (numbered versions)
+      scan-2.md            # Re-run creates next version
       sources/             # Drop PDFs here
       extracts/            # Per-source markdown
       02-digest.md         # Digest output
@@ -147,8 +157,10 @@ claude:
     # digest_synthesis uses default (opus)
 ```
 
-## Prerequisites
+## License
 
-- Python 3.11+
-- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) installed and authenticated
-- [Brave Search API key](https://brave.com/search/api/)
+AGPL-3.0 — see [LICENSE](LICENSE) for details.
+
+## Contributing
+
+Contributions are welcome. Please open an issue to discuss your idea before submitting a pull request.
