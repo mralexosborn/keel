@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+.venv/
+
+# User projects (contain personal research data)
+projects/
+
+# Environment / local state
+.env
+.active
+
+# OS
+.DS_Store
+
+# Editor
+*.swp
+*.swo
+*~
